@@ -78,21 +78,20 @@ export async function POST(
                         pincode,
                         city,
                         state,
-                    }
-                })
-    
-                const addresses = await prismadb.address.findMany({
-                    where: {
-                        userId,
                     },
-                    orderBy: {
-                        createdAt: "asc"
+                    select: {
+                        id: true,
+                        username: true,
+                        addressline1: true,
+                        addressline2: true,
+                        landmark: true,
+                        pincode: true,
+                        city: true,
+                        state: true,
                     }
                 })
-    
-                const addressJsonString = JSON.stringify(addresses) 
                 
-                return NextResponse.json({ addresses: addressJsonString },  {
+                return NextResponse.json({ address: address },  {
                     headers: corsHeaders
                 })
             }else{

@@ -80,24 +80,37 @@ export async function POST(
                     const updatedUser = await prismadb.user.findFirst({
                         where: {
                             phone
+                        },
+                        select: {
+                            id: true,
+                            phone: true,
+                            accessToken: true,
+                            storeId: true
                         }
                     })
-                    const userJsonString = JSON.stringify(updatedUser)
 
                     const addresses = await prismadb.address.findMany({
                         where: {
                             userId: updatedUser?.id,
                         },
+                        select:{
+                            id: true,
+                            username: true,
+                            pincode: true,
+                            addressline1: true,
+                            addressline2: true,
+                            landmark: true,
+                            city: true,
+                            state: true
+                        },
                         orderBy: {
                             createdAt: "asc"
                         }
-                    })
-        
-                    const addressJsonString = JSON.stringify(addresses) 
+                    }) 
                     
                     const successUrl = `${process.env.FRONTEND_STORE_URL}`
 
-                    return NextResponse.json({ url: successUrl, user: userJsonString, addresses: addressJsonString, accessToken: userJwt}, {
+                    return NextResponse.json({ url: successUrl, user: updatedUser, addresses: addresses, accessToken: userJwt}, {
                         headers: {
                             "Access-Control-Allow-Credentials":"true",
                             "Access-Control-Allow-Origin": `${process.env.FRONTEND_STORE_URL}`,

@@ -83,21 +83,14 @@ export async function PATCH (
                         state,
                     }
                 })
-    
-                const addresses = await prismadb.address.findMany({
-                    where: {
-                        userId,
-                    },
-                    orderBy: {
-                        createdAt: "asc"
-                    }
-                })
-    
-                const addressJsonString = JSON.stringify(addresses) 
+                if(addressUpdate){
+                    return NextResponse.json({ message: "address updated successfully." },  {
+                        headers: corsHeaders
+                    })
+                }else{
+                    return new NextResponse("Internal error", {status: 500})
+                }            
                 
-                return NextResponse.json({ addresses: addressJsonString },  {
-                    headers: corsHeaders
-                })
             }else{
                 return new NextResponse("Unauthorized", {status : 401})
             }
