@@ -41,13 +41,7 @@ export async function POST(
         const successUrl = `${process.env.FRONTEND_STORE_URL}`
         
         return NextResponse.json({ url: successUrl}, {
-            headers: {
-                "Access-Control-Allow-Credentials":"true",
-                "Access-Control-Allow-Origin": `${process.env.FRONTEND_STORE_URL}`,
-                "Access-Control-Allow-Methods": "GET,DELETE,PATCH,POST,PUT,OPTIONS",
-                "Access-Control-Allow-Headers": "Content-Type, Authorization",
-                'Set-Cookie': `token=""`
-            }
+            headers: corsHeaders
         })
            
             
