@@ -6,14 +6,14 @@ import { serialize } from "cookie";
 import GetTokenExpiry from "@/custom-functions/get-token-expiry";
 
 const corsHeaders = {
-    "ACCESS_CONTROL_ALLOW_CREDENTIALS" : "true",
-    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials":"true",
+    "Access-Control-Allow-Origin": `${process.env.FRONTEND_STORE_URL}`,
     "Access-Control-Allow-Methods": "GET,DELETE,PATCH,POST,PUT,OPTIONS",
-    "Access-Control-Allow-Headers": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
 };
 
 export async function OPTIONS() {
-    return NextResponse.json({status: 200}, { headers: corsHeaders});
+    return NextResponse.json({}, { headers: corsHeaders});
 }
 
 export async function POST(
@@ -110,12 +110,18 @@ export async function POST(
                     
                     const successUrl = `${process.env.FRONTEND_STORE_URL}`
 
-                    return NextResponse.json({status: 200, url: successUrl, user: updatedUser, addresses: addresses, accessToken: userJwt}, {
-                        headers: corsHeaders
+                    return NextResponse.json({ url: successUrl, user: updatedUser, addresses: addresses, accessToken: userJwt}, {
+                        headers: {
+                            "Access-Control-Allow-Credentials":"true",
+                            "Access-Control-Allow-Origin": `${process.env.FRONTEND_STORE_URL}`,
+                            "Access-Control-Allow-Methods": "GET,DELETE,PATCH,POST,PUT,OPTIONS",
+                            "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                            'Set-Cookie': serialized
+                        }
                     })
                     
                 }else{
-                    const failureUrl = `${process.env.FRONTEND_STORE_URL}/verification-failure/`
+                    const failureUrl = `${process.env.FRONTEND_STORE_URL}/verification-failure`
                     return NextResponse.json({ url: failureUrl,message: "OTP expired"}, {
                             headers: corsHeaders
                         })

@@ -6,16 +6,14 @@ import SendSms from "@/custom-functions/send-sms";
 import GetOtpExpiry from "@/custom-functions/get-otp-expiry";
 
 const corsHeaders = {
-    
-    "ACCESS_CONTROL_ALLOW_CREDENTIALS" : "true",
-    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials":"true",
+    "Access-Control-Allow-Origin": `${process.env.FRONTEND_STORE_URL}`,
     "Access-Control-Allow-Methods": "GET,DELETE,PATCH,POST,PUT,OPTIONS",
-    "Access-Control-Allow-Headers": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version",
-
+    "Access-Control-Allow-Headers": "Content-Type, Authorization"
 };
 
 export async function OPTIONS() {
-    return NextResponse.json({status: 200}, { headers: corsHeaders});
+    return NextResponse.json({}, { headers: corsHeaders});
 }
 
 export async function POST(
@@ -83,8 +81,8 @@ export async function POST(
                 return new NextResponse("OTP sending error", {status : 500})   
             }
             else{
-                const successUrl = `${process.env.FRONTEND_STORE_URL}/${userId}/otp-verification/`
-                return NextResponse.json({status: 200, url: successUrl, phone },  {
+                const successUrl = `${process.env.FRONTEND_STORE_URL}/${userId}/otp-verification`
+                return NextResponse.json({ url: successUrl, phone },  {
                     headers: corsHeaders
                 })
             }
