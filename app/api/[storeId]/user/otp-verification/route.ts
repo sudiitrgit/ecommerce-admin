@@ -7,7 +7,7 @@ import GetTokenExpiry from "@/custom-functions/get-token-expiry";
 
 const corsHeaders = {
     
-    "Access-Control-Allow-Origin": `${process.env.FRONTEND_STORE_URL}`,
+    "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "GET,DELETE,PATCH,POST,PUT,OPTIONS",
     "Access-Control-Allow-Headers": "Origin ,Content-Type, Accept",
     "Vary": "Origin",
@@ -117,7 +117,7 @@ export async function POST(
                     })
                     
                 }else{
-                    const failureUrl = `${process.env.FRONTEND_STORE_URL}/verification-failure`
+                    const failureUrl = `${process.env.FRONTEND_STORE_URL}/verification-failure/`
                     return NextResponse.json({ url: failureUrl,message: "OTP expired"}, {
                             headers: corsHeaders
                         })

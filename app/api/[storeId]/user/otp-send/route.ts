@@ -7,7 +7,7 @@ import GetOtpExpiry from "@/custom-functions/get-otp-expiry";
 
 const corsHeaders = {
     
-    "Access-Control-Allow-Origin": `${process.env.FRONTEND_STORE_URL}`,
+    "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "GET,DELETE,PATCH,POST,PUT,OPTIONS",
     "Access-Control-Allow-Headers": "Origin, Content-Type, Accept",
     "Vary": "Origin",
@@ -83,7 +83,7 @@ export async function POST(
                 return new NextResponse("OTP sending error", {status : 500})   
             }
             else{
-                const successUrl = `${process.env.FRONTEND_STORE_URL}/${userId}/otp-verification`
+                const successUrl = `${process.env.FRONTEND_STORE_URL}/${userId}/otp-verification/`
                 return NextResponse.json({status: 200, url: successUrl, phone },  {
                     headers: corsHeaders
                 })
