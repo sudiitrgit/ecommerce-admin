@@ -7,8 +7,9 @@ const corsHeaders = {
     
     "Access-Control-Allow-Origin": `${process.env.FRONTEND_STORE_URL}`,
     "Access-Control-Allow-Methods": "POST,OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, x-requested-with",
-    "Vary": "Origin"
+    "Access-Control-Allow-Headers": "Origin ,Content-Type, Accept",
+    "Vary": "Origin",
+    "Access-Control-Max-Age": "86400"
 };
 
 export async function OPTIONS() {
