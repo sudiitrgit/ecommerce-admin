@@ -15,7 +15,7 @@ const corsHeaders = {
 };
 
 export async function OPTIONS() {
-    return NextResponse.json({}, { headers: corsHeaders});
+    return NextResponse.json({status: 200}, { headers: corsHeaders});
 }
 
 export async function POST(
@@ -84,7 +84,7 @@ export async function POST(
             }
             else{
                 const successUrl = `${process.env.FRONTEND_STORE_URL}/${userId}/otp-verification`
-                return NextResponse.json({ url: successUrl, phone },  {
+                return NextResponse.json({status: 200, url: successUrl, phone },  {
                     headers: corsHeaders
                 })
             }

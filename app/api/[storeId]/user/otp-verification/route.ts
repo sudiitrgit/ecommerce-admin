@@ -15,7 +15,7 @@ const corsHeaders = {
 };
 
 export async function OPTIONS() {
-    return NextResponse.json({}, { headers: corsHeaders});
+    return NextResponse.json({status: 200}, { headers: corsHeaders});
 }
 
 export async function POST(
@@ -112,14 +112,8 @@ export async function POST(
                     
                     const successUrl = `${process.env.FRONTEND_STORE_URL}`
 
-                    return NextResponse.json({ url: successUrl, user: updatedUser, addresses: addresses, accessToken: userJwt}, {
-                        headers: {
-                            "Access-Control-Allow-Credentials":"true",
-                            "Access-Control-Allow-Origin": `${process.env.FRONTEND_STORE_URL}`,
-                            "Access-Control-Allow-Methods": "GET,DELETE,PATCH,POST,PUT,OPTIONS",
-                            "Access-Control-Allow-Headers": "Content-Type, Authorization",
-                            'Set-Cookie': serialized
-                        }
+                    return NextResponse.json({status: 200, url: successUrl, user: updatedUser, addresses: addresses, accessToken: userJwt}, {
+                        headers: corsHeaders
                     })
                     
                 }else{
