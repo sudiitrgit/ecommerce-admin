@@ -7,7 +7,7 @@ import GetOtpExpiry from "@/custom-functions/get-otp-expiry";
 
 const corsHeaders = {
     "Access-Control-Allow-Credentials":"true",
-    "Access-Control-Allow-Origin": `${process.env.FRONTEND_STORE_URL}`,
+    "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "GET,DELETE,PATCH,POST,PUT,OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type, Authorization"
 };
