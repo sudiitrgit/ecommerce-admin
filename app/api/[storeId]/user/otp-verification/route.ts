@@ -6,10 +6,11 @@ import { serialize } from "cookie";
 import GetTokenExpiry from "@/custom-functions/get-token-expiry";
 
 const corsHeaders = {
-    "Access-Control-Allow-Credentials":"true",
+    
     "Access-Control-Allow-Origin": `${process.env.FRONTEND_STORE_URL}`,
     "Access-Control-Allow-Methods": "GET,DELETE,PATCH,POST,PUT,OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization"
+    "Access-Control-Allow-Headers": "Content-Type, x-requested-with",
+    "Vary": "Origin"
 };
 
 export async function OPTIONS() {
