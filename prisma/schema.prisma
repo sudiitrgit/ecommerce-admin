@@ -105,6 +105,7 @@ model Order {
   storeId String
   store Store @relation("StoreToOrder", fields: [storeId], references: [id])
   orderItems OrderItem[]
+  isDelivered Boolean @default(false)
   isPaid Boolean @default(false)
   userId String @default("")
   user User @relation("OrderToUser", fields: [userId], references: [id])

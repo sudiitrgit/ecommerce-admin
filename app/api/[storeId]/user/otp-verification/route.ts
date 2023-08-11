@@ -106,11 +106,41 @@ export async function POST(
                         orderBy: {
                             createdAt: "asc"
                         }
-                    }) 
+                    })
+
+                    const orders = await prismadb.order.findMany({
+                        where: {
+                            storeId: params.storeId,
+                            userId: updatedUser?.id,
+                        },
+                        include: {
+                            orderItems: {
+                                include: {
+                                    product: true
+                                }
+                            },
+                        },
+                        orderBy: {
+                            createdAt: 'desc'
+                        },
+                        take: 4
+    
+                    })
+
+                    const formattedOrders = orders.map((item) => ({
+                        id: item.id,
+                        products: item.orderItems.map((orderItem) => orderItem.product.name + " (" + orderItem.quantity + ")").join(', '),
+                        totalPrice: item.orderItems.reduce((total, item) => {
+                            return total + Number(item.product.price) * Number(item.quantity)
+                        }, 0),
+                        isDelivered: item.isDelivered,
+                        isPaid: item.isPaid,
+                        createdAt: item.createdAt
+                    }))
                     
                     const successUrl = `${process.env.FRONTEND_STORE_URL}`
 
-                    return NextResponse.json({ url: successUrl, user: updatedUser, addresses: addresses, accessToken: userJwt}, {
+                    return NextResponse.json({ url: successUrl, user: updatedUser, addresses: addresses, orders: formattedOrders, accessToken: userJwt}, {
                         headers: {
                             "Access-Control-Allow-Credentials":"true",
                             "Access-Control-Allow-Origin": `${process.env.FRONTEND_STORE_URL}`,
