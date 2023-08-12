@@ -2,12 +2,10 @@ import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
 
 const corsHeaders = {
-    
+    "Access-Control-Allow-Credentials":"true",
     "Access-Control-Allow-Origin": `${process.env.FRONTEND_STORE_URL}`,
-    "Access-Control-Allow-Methods": "POST,OPTIONS",
-    "Access-Control-Allow-Headers": "Origin ,Content-Type, Accept",
-    "Vary": "Origin",
-    "Access-Control-Max-Age": "86400"
+    "Access-Control-Allow-Methods": "GET,DELETE,PATCH,POST,PUT,OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
 };
 
 export async function OPTIONS() {

@@ -16,6 +16,9 @@ const OrdersPage = async ({
             storeId: params.storeId,
             userId: {
                 not: ""
+            },
+            addressId:{
+                not: ""
             }
         },
         include: {
@@ -24,7 +27,8 @@ const OrdersPage = async ({
                     product: true
                 }
             },
-            user: true
+            user: true,
+            address: true
     
         },
         orderBy: {
@@ -39,6 +43,7 @@ const OrdersPage = async ({
         totalPrice: formatter.format(item.orderItems.reduce((total, item) => {
             return total + Number(item.product.price) * Number(item.quantity)
         }, 0)),
+        address: item.address.username + ", " + item.address.addressline1 + ", " + item.address.addressline2 + ", " + item.address.landmark + ", " + item.address.city + ", " + item.address.pincode + ", " + item.address.state,
         isPaid: item.isPaid,
         createdAt: format(item.createdAt, "MMMM do, yyyy")
     }))

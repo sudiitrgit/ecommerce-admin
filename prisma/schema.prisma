@@ -109,11 +109,14 @@ model Order {
   isPaid Boolean @default(false)
   userId String @default("")
   user User @relation("OrderToUser", fields: [userId], references: [id])
+  addressId String @default("")
+  address Address @relation("OrderToAddress", fields: [addressId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([storeId])
   @@index([userId])
+  @@index([addressId])
 }
 
 model OrderItem {
@@ -149,6 +152,7 @@ model Address {
   id String @id @default(uuid())
   userId String
   user User @relation("UserToAddress", fields: [userId], references: [id])
+  order Order[] @relation("OrderToAddress")
   username String
   pincode String
   addressline1 String

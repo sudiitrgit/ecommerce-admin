@@ -112,6 +112,7 @@ export async function POST(
                         where: {
                             storeId: params.storeId,
                             userId: updatedUser?.id,
+                            isPaid: false,
                         },
                         include: {
                             orderItems: {

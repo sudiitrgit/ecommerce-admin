@@ -8,6 +8,7 @@ export type OrderColumn = {
   totalPrice: string
   products: string
   phone: string
+  address: string
   createdAt: string
   
 }
