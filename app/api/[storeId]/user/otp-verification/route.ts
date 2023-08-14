@@ -92,6 +92,7 @@ export async function POST(
                     const addresses = await prismadb.address.findMany({
                         where: {
                             userId: updatedUser?.id,
+                            isDeleted: false
                         },
                         select:{
                             id: true,

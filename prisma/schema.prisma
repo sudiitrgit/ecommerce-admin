@@ -160,6 +160,7 @@ model Address {
   landmark String @default("")
   city String
   state String
+  isDeleted Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

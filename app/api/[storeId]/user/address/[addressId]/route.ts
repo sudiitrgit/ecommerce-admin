@@ -146,10 +146,13 @@ export async function DELETE (
                 return new NextResponse("address does not exist", { status : 403})
             }
     
-            const address = await prismadb.address.deleteMany({
+            const address = await prismadb.address.update({
                 where: {
-                    id: params.addressId,
+                    id: params.addressId
                 },
+                data: {
+                    isDeleted: true
+                }
             })
     
             return NextResponse.json(address,  {
