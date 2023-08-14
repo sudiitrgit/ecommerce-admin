@@ -45,6 +45,7 @@ const OrdersPage = async ({
         }, 0)),
         address: item.address.username + ", " + item.address.addressline1 + ", " + item.address.addressline2 + ", " + item.address.landmark + ", " + item.address.city + ", " + item.address.pincode + ", " + item.address.state,
         isPaid: item.isPaid,
+        isDelivered: item.isDelivered,
         createdAt: format(item.createdAt, "MMMM do, yyyy")
     }))
 
